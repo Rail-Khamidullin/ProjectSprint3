@@ -3,16 +3,11 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import static constants.ConstantsClass.*;
+
 public class SamokatOrderPage {
 
-    public static final By FIRST_ORDER_BUTTON = By.className("Header_Link__1TAG7");
-    public static final By FIRST_NAME_FIELD = By.xpath(".//div[@class = 'Input_InputContainer__3NykH']/div[@class = 'Input_Input__1iN_Z' and text() = '* Имя']");
-    public static final By SECOND_NAME_FIELD = By.className("Button_Button__ra12g Button_Middle__1CSJM");
-    public static final By ADDRESS_ORDER_FIELD = By.xpath(".//div[@class = 'Input_InputContainer__3NykH']/div[@class = 'Input_Input__1iN_Z' and text() = '* Адрес: куда привезти заказ']");
-    public static final By SUBWAY_ORDER_FIELD = By.className("select-search__input");
-    public static final By PHONE_NUMBER_FIELD = By.xpath(".//div[@class = 'Input_InputContainer__3NykH']/div[@class = 'Input_Input__1iN_Z' and text() = '* Телефон: на него позвонит курьер']");
-    public static final By NEXT_BUTTON = By.className("Button_Button__ra12g Button_Middle__1CSJM");
-    // Локатор кнопки Заказ в хедере
+
     public By firstOrderButton = By.className("Header_Link__1TAG7");
     // Локатор кнопки Заказ под описанием самоката
     public By secondOrderButton = By.className("Button_Button__ra12g Button_Middle__1CSJM");
