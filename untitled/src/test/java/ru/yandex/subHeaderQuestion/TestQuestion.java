@@ -11,7 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import pages.QuestionPage;
 import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertEquals;
-import static pages.ConstantsClass.URL_SAMOKAT;
+import static constants.ConstantsClass.URL_SAMOKAT;
 
 @RunWith(Parameterized.class)
 public class TestQuestion {

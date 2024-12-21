@@ -7,8 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static pages.ConstantsClass.IS_VISIABLE_QUESTION;
-import static pages.ConstantsClass.SUB_HEADER;
+import static constants.ConstantsClass.IS_VISIABLE_QUESTION;
+import static constants.ConstantsClass.SUB_HEADER;
 
 public class QuestionPage {
 
