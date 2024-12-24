@@ -7,12 +7,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static constants.ConstantsClass.IS_VISIBLE_QUESTION;
-import static constants.ConstantsClass.SUB_HEADER;
-
 public class QuestionPage {
 
-    private WebDriver driver;
+    private final WebDriver driver;
+    /// Для вопросов в подзаголовке
+    // Локатор заголовка с вопросами (для скрола)
+    private static final By SUB_HEADER = By.xpath(".//div[text() = 'Вопросы о важном']");
+    // Локатор с блоком вопросов
+    private static final By IS_VISIBLE_QUESTION = By.xpath(".//div[@class = 'Home_FAQ__3uVm4']");
 
     public QuestionPage(WebDriver driver) {
         this.driver = driver;

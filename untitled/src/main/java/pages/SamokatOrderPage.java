@@ -2,50 +2,32 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static constants.ConstantsClass.*;
+import java.time.Duration;
 
 public class SamokatOrderPage {
 
+    private final WebDriver driver;
 
-    public By firstOrderButton = By.className("Header_Link__1TAG7");
-    // Локатор кнопки Заказ под описанием самоката
-    public By secondOrderButton = By.className("Button_Button__ra12g Button_Middle__1CSJM");
-    // Поле для ввода имени
-    public By firstNameField = By.xpath(".//div[@class = 'Input_InputContainer__3NykH']/div[@class = 'Input_Input__1iN_Z' and text() = '* Имя']");
+    /// Заполнение блока "Для кого самокат"
+    // Локатор кнопки Заказ в хедере
+    private static final By FIRST_ORDER_BUTTON = By.xpath(".//div[@class = 'Header_Nav__AGCXC']/button[@class = 'Button_Button__ra12g']");
+    // Поле для ввода Имени
+    private static final By FIRST_NAME_FIELD = By.xpath(".//input[@placeholder = '* Имя']");
     // Поле для ввода Фамилии
-    public By secondNameField = By.xpath(".//div[@class = 'Input_InputContainer__3NykH']/div[@class = 'Input_Input__1iN_Z' and text() = '* Фамилия']");
+    private static final By SECOND_NAME_FIELD = By.xpath(".//input[@placeholder = '* Фамилия']");
     // Поле для ввода Адреса
-    public By addressField = By.xpath(".//div[@class = 'Input_InputContainer__3NykH']/div[@class = 'Input_Input__1iN_Z' and text() = '* Адрес: куда привезти заказ']");
+    private static final By ADDRESS_ORDER_FIELD = By.xpath(".//input[@placeholder = '* Адрес: куда привезти заказ']");
     // Поле для ввода Станции метро
-    public By subwayField = By.className("select-search__input");
-    // Название станции
-    public String subwayName;
-    public By subwayNameField = By.xpath(".//input[@class = 'select-search__input' and text() = '" + subwayName + "']");
+    private static final By SUBWAY_ORDER_FIELD = By.className("select-search__input");
     // Поле для ввода Телефона
-    public By phoneField = By.xpath(".//div[@class = 'Input_InputContainer__3NykH']/div[@class = 'Input_Input__1iN_Z' and text() = '* Телефон: на него позвонит курьер']");
+    private static final By PHONE_NUMBER_FIELD = By.xpath(".//input[@placeholder = '* Телефон: на него позвонит курьер']");
     // Локтор кнопки Далее
-    public By nextButton = By.className("Button_Button__ra12g Button_Middle__1CSJM");
-    // Поле Даты привоза самоката
-    public By dateOrderField = By.className("Input_Input__1iN_Z Input_Responsible__1jDKN Input_Filled__1rDxs");
-    // Поле срок аренды
-    public By rentPeriod = By.className("Dropdown-placeholder");
-    // Кол-во дней для аренды
-    public String quantityDays;
-    // Плейсхолдер с выбором дней аренды
-    public By dayRentPeriod = By.xpath(".//div[@class = 'Dropdown-placeholder' and text() = '" + quantityDays + "']");
-    // Цвета самоката
-    public By color;
-    // Выбор цвета самоката
-    public By samokatColor = By.id(""+ color +"");
-    // Поле для ввода комментария
-    public By commentField = By.xpath(".//input[@class = 'Input_InputContainer__3NykH']/input[@class = 'Input_Input__1iN_Z Input_Responsible__1jDKN']");
-    // Локатор кнопки Заказать
-    public By orderButton = By.xpath(".//button[@class = 'Button_Button__ra12g Button_Middle__1CSJM' and text() = 'Заказать']");
-    // Локатор кнопки всплывающего окна "Хотите оформить заказ" с названием Да
-    public By approvalOrderButton = By.xpath(".//button[@class = 'Button_Button__ra12g Button_Middle__1CSJM' and text() = 'Да']");
-
-    private WebDriver driver;
+    private static final By NEXT_BUTTON = By.xpath(".//button[text() = 'Далее']");
+    // Локтор кнопки Cookie
+    private static final By COOKIE_LOCATOR = By.id("rcc-confirm-button");
 
     public SamokatOrderPage(WebDriver driver) {
         this.driver = driver;
@@ -53,7 +35,18 @@ public class SamokatOrderPage {
 
     // Нажатие на первую кнопку Заказ (в хедере)
     public void tapToFirstOrderButton() {
+        // Скрытие окна с cookie
+        driver.findElement(COOKIE_LOCATOR).click();
         driver.findElement(FIRST_ORDER_BUTTON).click();
+    }
+
+    // Выбор станции метро
+    public void tapToSubwayStation(String name) {
+        By station = By.xpath(".//li[@class = 'select-search__row' and @data-index = '" + name + "']");
+        // Ожидание появления необходимой станции
+        new WebDriverWait(driver, 3)
+                .until(ExpectedConditions.visibilityOfElementLocated(station));
+        driver.findElement(station).click();
     }
 
     // Заполнение блока "Для кого самокат"
@@ -62,8 +55,10 @@ public class SamokatOrderPage {
         driver.findElement(SECOND_NAME_FIELD).sendKeys(secondName);
         driver.findElement(ADDRESS_ORDER_FIELD).sendKeys(addressName);
         driver.findElement(SUBWAY_ORDER_FIELD).click();
-        driver.findElement(By.xpath(".//input[@class = 'select-search__input' and text() = '" + subwayName + "']")).click();
+        tapToSubwayStation(subwayName);
         driver.findElement(PHONE_NUMBER_FIELD).sendKeys(phoneNumber);
+        new WebDriverWait(driver, 3)
+                .until(ExpectedConditions.visibilityOfElementLocated(NEXT_BUTTON));
         driver.findElement(NEXT_BUTTON).click();
     }
 }
